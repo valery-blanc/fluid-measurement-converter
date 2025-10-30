@@ -46,12 +46,7 @@ const ConversionCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md p-8 space-y-8 shadow-lg">
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Convertisseur</h1>
-        <p className="text-muted-foreground">Feet & Inches ↔ Centimètres</p>
-      </div>
-
+    <Card className="w-full max-w-md p-6 space-y-6 shadow-lg">
       <div className="space-y-6">
         {/* Feet & Inches Section */}
         <div className="space-y-4 p-6 bg-secondary/30 rounded-xl">
@@ -68,6 +63,8 @@ const ConversionCard = () => {
               className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
               min="0"
               step="any"
+              autoFocus
+              inputMode="numeric"
             />
           </div>
 
@@ -84,6 +81,7 @@ const ConversionCard = () => {
               className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
               min="0"
               step="any"
+              inputMode="numeric"
             />
           </div>
         </div>
@@ -109,6 +107,7 @@ const ConversionCard = () => {
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-accent transition-all"
             min="0"
             step="any"
+            inputMode="numeric"
           />
         </div>
       </div>
