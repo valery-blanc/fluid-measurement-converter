@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useState, useEffect } from "react";
-import { ArrowLeftRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const ConversionCard = () => {
   const [feet, setFeet] = useState<string>("");
@@ -46,8 +46,8 @@ const ConversionCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md p-6 space-y-6 shadow-lg">
-      <div className="space-y-6">
+    <Card className="w-full max-w-md p-4 space-y-4 shadow-lg">
+      <div className="space-y-4">
         {/* Feet & Inches Section */}
         <div className="space-y-4 p-6 bg-secondary/30 rounded-xl">
           <div className="space-y-2">
@@ -86,16 +86,9 @@ const ConversionCard = () => {
           </div>
         </div>
 
-        {/* Conversion Icon */}
-        <div className="flex justify-center">
-          <div className="bg-primary p-4 rounded-full shadow-md">
-            <ArrowLeftRight className="w-6 h-6 text-primary-foreground" />
-          </div>
-        </div>
-
         {/* Centimeters Section */}
         <div className="space-y-2 p-6 bg-accent/20 rounded-xl">
-          <Label htmlFor="cm" className="text-base font-semibold text-accent-foreground">
+          <Label htmlFor="cm" className="text-base font-semibold text-secondary-foreground">
             Centimètres (cm)
           </Label>
           <Input
@@ -112,8 +105,22 @@ const ConversionCard = () => {
         </div>
       </div>
 
-      <div className="text-center text-sm text-muted-foreground pt-4">
-        <p>1 pied = 30.48 cm • 1 pouce = 2.54 cm</p>
+      <div className="space-y-4">
+        <div className="text-center text-sm text-muted-foreground">
+          <p>1 pied = 30.48 cm • 1 pouce = 2.54 cm</p>
+        </div>
+        
+        <Button 
+          onClick={() => {
+            setFeet("");
+            setInches("");
+            setCm("");
+          }}
+          variant="outline"
+          className="w-full"
+        >
+          Clear
+        </Button>
       </div>
     </Card>
   );
