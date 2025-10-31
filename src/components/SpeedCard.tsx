@@ -15,9 +15,9 @@ const SpeedCard = () => {
     const msValue = kmhVal / 3.6;
     const mphValue = kmhVal / 1.60934;
     const knotsValue = kmhVal / 1.852;
-    setMs(msValue.toFixed(2));
-    setMph(mphValue.toFixed(2));
-    setKnots(knotsValue.toFixed(2));
+    setMs(msValue.toFixed(5));
+    setMph(mphValue.toFixed(5));
+    setKnots(knotsValue.toFixed(5));
   };
 
   // Conversion m/s -> others
@@ -25,9 +25,9 @@ const SpeedCard = () => {
     const kmhValue = msVal * 3.6;
     const mphValue = msVal * 2.23694;
     const knotsValue = msVal * 1.94384;
-    setKmh(kmhValue.toFixed(2));
-    setMph(mphValue.toFixed(2));
-    setKnots(knotsValue.toFixed(2));
+    setKmh(kmhValue.toFixed(5));
+    setMph(mphValue.toFixed(5));
+    setKnots(knotsValue.toFixed(5));
   };
 
   // Conversion mph -> others
@@ -35,9 +35,9 @@ const SpeedCard = () => {
     const kmhValue = mphVal * 1.60934;
     const msValue = mphVal / 2.23694;
     const knotsValue = mphVal / 1.15078;
-    setKmh(kmhValue.toFixed(2));
-    setMs(msValue.toFixed(2));
-    setKnots(knotsValue.toFixed(2));
+    setKmh(kmhValue.toFixed(5));
+    setMs(msValue.toFixed(5));
+    setKnots(knotsValue.toFixed(5));
   };
 
   // Conversion knots -> others
@@ -45,9 +45,9 @@ const SpeedCard = () => {
     const kmhValue = knotsVal * 1.852;
     const msValue = knotsVal / 1.94384;
     const mphValue = knotsVal * 1.15078;
-    setKmh(kmhValue.toFixed(2));
-    setMs(msValue.toFixed(2));
-    setMph(mphValue.toFixed(2));
+    setKmh(kmhValue.toFixed(5));
+    setMs(msValue.toFixed(5));
+    setMph(mphValue.toFixed(5));
   };
 
   const handleKmhChange = (value: string) => {

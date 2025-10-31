@@ -13,24 +13,24 @@ const TemperatureCard = () => {
   const updateFromCelsius = (celsiusVal: number) => {
     const fahrenheitValue = (celsiusVal * 9/5) + 32;
     const kelvinValue = celsiusVal + 273.15;
-    setFahrenheit(fahrenheitValue.toFixed(2));
-    setKelvin(kelvinValue.toFixed(2));
+    setFahrenheit(fahrenheitValue.toFixed(5));
+    setKelvin(kelvinValue.toFixed(5));
   };
 
   // Conversion Fahrenheit -> others
   const updateFromFahrenheit = (fahrenheitVal: number) => {
     const celsiusValue = (fahrenheitVal - 32) * 5/9;
     const kelvinValue = celsiusValue + 273.15;
-    setCelsius(celsiusValue.toFixed(2));
-    setKelvin(kelvinValue.toFixed(2));
+    setCelsius(celsiusValue.toFixed(5));
+    setKelvin(kelvinValue.toFixed(5));
   };
 
   // Conversion Kelvin -> others
   const updateFromKelvin = (kelvinVal: number) => {
     const celsiusValue = kelvinVal - 273.15;
     const fahrenheitValue = (celsiusValue * 9/5) + 32;
-    setCelsius(celsiusValue.toFixed(2));
-    setFahrenheit(fahrenheitValue.toFixed(2));
+    setCelsius(celsiusValue.toFixed(5));
+    setFahrenheit(fahrenheitValue.toFixed(5));
   };
 
   const handleCelsiusChange = (value: string) => {

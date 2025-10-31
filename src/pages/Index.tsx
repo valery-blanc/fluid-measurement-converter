@@ -14,7 +14,9 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    setCurrent(api.selectedScrollSnap());
+    // Force initial position to 0
+    api.scrollTo(0, true);
+    setCurrent(0);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
@@ -64,7 +66,16 @@ const Index = () => {
       </div>
 
       {/* Carousel */}
-      <Carousel setApi={setApi} className="w-full max-w-md" opts={{ startIndex: 0 }}>
+      <Carousel 
+        setApi={setApi} 
+        className="w-full max-w-md" 
+        opts={{ 
+          startIndex: 0,
+          loop: false,
+          dragFree: false,
+          containScroll: "trimSnaps"
+        }}
+      >
         <CarouselContent>
           <CarouselItem>
             <ConversionCard />

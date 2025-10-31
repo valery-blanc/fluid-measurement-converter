@@ -13,7 +13,7 @@ const ConversionCard = () => {
   const updateCmFromFeetInches = (feetVal: number, inchesVal: number) => {
     const totalInches = feetVal * 12 + inchesVal;
     const cmValue = totalInches * 2.54;
-    setCm(cmValue.toFixed(2));
+    setCm(cmValue.toFixed(5));
   };
 
   // Conversion cm -> feet + inches
@@ -22,7 +22,7 @@ const ConversionCard = () => {
     const feetVal = Math.floor(totalInches / 12);
     const inchesVal = totalInches % 12;
     setFeet(feetVal.toString());
-    setInches(inchesVal.toFixed(2));
+    setInches(inchesVal.toFixed(5));
   };
 
   const handleFeetChange = (value: string) => {

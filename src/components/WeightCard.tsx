@@ -13,24 +13,24 @@ const WeightCard = () => {
   const updateFromKg = (kgVal: number) => {
     const lbValue = kgVal * 2.20462;
     const ozValue = kgVal * 35.274;
-    setLb(lbValue.toFixed(2));
-    setOz(ozValue.toFixed(2));
+    setLb(lbValue.toFixed(5));
+    setOz(ozValue.toFixed(5));
   };
 
   // Conversion lb -> kg and oz
   const updateFromLb = (lbVal: number) => {
     const kgValue = lbVal / 2.20462;
     const ozValue = lbVal * 16;
-    setKg(kgValue.toFixed(2));
-    setOz(ozValue.toFixed(2));
+    setKg(kgValue.toFixed(5));
+    setOz(ozValue.toFixed(5));
   };
 
   // Conversion oz -> kg and lb
   const updateFromOz = (ozVal: number) => {
     const kgValue = ozVal / 35.274;
     const lbValue = ozVal / 16;
-    setKg(kgValue.toFixed(2));
-    setLb(lbValue.toFixed(2));
+    setKg(kgValue.toFixed(5));
+    setLb(lbValue.toFixed(5));
   };
 
   const handleKgChange = (value: string) => {
