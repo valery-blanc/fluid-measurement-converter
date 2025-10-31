@@ -52,10 +52,10 @@ const WeightCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md p-4 space-y-4 shadow-lg">
-      <div className="space-y-4">
+    <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
+      <div className="space-y-2">
         {/* Kilogrammes Section */}
-        <div className="space-y-2 p-6 bg-secondary/30 rounded-xl">
+        <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <Label htmlFor="kg" className="text-base font-semibold text-secondary-foreground">
             Kilogrammes (kg)
           </Label>
@@ -74,7 +74,7 @@ const WeightCard = () => {
         </div>
 
         {/* Livres Section */}
-        <div className="space-y-2 p-6 bg-accent/20 rounded-xl">
+        <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <Label htmlFor="lb" className="text-base font-semibold text-secondary-foreground">
             Livres (lb)
           </Label>
@@ -92,7 +92,7 @@ const WeightCard = () => {
         </div>
 
         {/* Onces Section */}
-        <div className="space-y-2 p-6 bg-primary/10 rounded-xl">
+        <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <Label htmlFor="oz" className="text-base font-semibold text-secondary-foreground">
             Onces (oz)
           </Label>

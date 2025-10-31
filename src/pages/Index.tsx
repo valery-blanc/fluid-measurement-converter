@@ -64,7 +64,7 @@ const Index = () => {
       </div>
 
       {/* Carousel */}
-      <Carousel setApi={setApi} className="w-full max-w-md">
+      <Carousel setApi={setApi} className="w-full max-w-md" opts={{ startIndex: 0 }}>
         <CarouselContent>
           <CarouselItem>
             <ConversionCard />

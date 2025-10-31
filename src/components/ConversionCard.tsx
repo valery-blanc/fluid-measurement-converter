@@ -46,10 +46,10 @@ const ConversionCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md p-4 space-y-4 shadow-lg">
-      <div className="space-y-4">
+    <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
+      <div className="space-y-2">
         {/* Feet & Inches Section */}
-        <div className="space-y-4 p-6 bg-secondary/30 rounded-xl">
+        <div className="space-y-4 p-3 bg-secondary/30 rounded-xl">
           <div className="space-y-2">
             <Label htmlFor="feet" className="text-base font-semibold text-secondary-foreground">
               Feet (pieds)
@@ -87,7 +87,7 @@ const ConversionCard = () => {
         </div>
 
         {/* Centimeters Section */}
-        <div className="space-y-2 p-6 bg-accent/20 rounded-xl">
+        <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <Label htmlFor="cm" className="text-base font-semibold text-secondary-foreground">
             Centimètres (cm)
           </Label>

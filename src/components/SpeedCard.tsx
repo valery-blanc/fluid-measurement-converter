@@ -75,10 +75,10 @@ const SpeedCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md p-4 space-y-4 shadow-lg">
-      <div className="space-y-4">
+    <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
+      <div className="space-y-2">
         {/* Km/h Section */}
-        <div className="space-y-2 p-6 bg-secondary/30 rounded-xl">
+        <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <Label htmlFor="kmh" className="text-base font-semibold text-secondary-foreground">
             Kilomètres/heure (km/h)
           </Label>
@@ -97,7 +97,7 @@ const SpeedCard = () => {
         </div>
 
         {/* M/s Section */}
-        <div className="space-y-2 p-6 bg-accent/20 rounded-xl">
+        <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <Label htmlFor="ms" className="text-base font-semibold text-secondary-foreground">
             Mètres/seconde (m/s)
           </Label>
@@ -115,7 +115,7 @@ const SpeedCard = () => {
         </div>
 
         {/* MPH Section */}
-        <div className="space-y-2 p-6 bg-primary/10 rounded-xl">
+        <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <Label htmlFor="mph" className="text-base font-semibold text-secondary-foreground">
             Miles/heure (mph)
           </Label>
@@ -133,7 +133,7 @@ const SpeedCard = () => {
         </div>
 
         {/* Knots Section */}
-        <div className="space-y-2 p-6 bg-muted/50 rounded-xl">
+        <div className="space-y-2 p-3 bg-muted/50 rounded-xl">
           <Label htmlFor="knots" className="text-base font-semibold text-secondary-foreground">
             Nœuds marins (kn)
           </Label>
