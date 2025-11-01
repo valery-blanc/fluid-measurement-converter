@@ -16,17 +16,29 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Force initial position to 0 with a slight delay to ensure proper initialization
-    const timer = setTimeout(() => {
-      api.scrollTo(0, true);
+    // Force initial position to 0 immediately
+    api.scrollTo(0, false);
+    setCurrent(0);
+
+    // Also force it again after a delay to ensure it sticks
+    const timer1 = setTimeout(() => {
+      api.scrollTo(0, false);
       setCurrent(0);
-    }, 10);
+    }, 50);
+
+    const timer2 = setTimeout(() => {
+      api.scrollTo(0, false);
+      setCurrent(0);
+    }, 200);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, [api]);
 
   const scrollToIndex = (index: number) => {
