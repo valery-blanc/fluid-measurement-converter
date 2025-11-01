@@ -15,60 +15,60 @@ const VolumeCard = () => {
   // Conversion from liters to all other units
   const updateFromLiters = (litersVal: number) => {
     setDeciliters((litersVal * 10).toFixed(5));
-    setUsGallon((litersVal * 0.264172).toFixed(5));
-    setUsCup((litersVal * 4.22675).toFixed(5));
-    setUsTablespoon((litersVal * 67.628).toFixed(5));
-    setUsTeaspoon((litersVal * 202.884).toFixed(5));
+    setUsGallon((litersVal / 3.785411784).toFixed(5));
+    setUsCup((litersVal * 4.22675284).toFixed(5));
+    setUsTablespoon((litersVal * 67.6280454).toFixed(5));
+    setUsTeaspoon((litersVal * 202.884136).toFixed(5));
   };
 
   // Conversion from deciliters to all other units
   const updateFromDeciliters = (decilitersVal: number) => {
-    const litersValue = decilitersVal / 10;
+    const litersValue = decilitersVal * 0.1;
     setLiters(litersValue.toFixed(5));
-    setUsGallon((litersValue * 0.264172).toFixed(5));
-    setUsCup((litersValue * 4.22675).toFixed(5));
-    setUsTablespoon((litersValue * 67.628).toFixed(5));
-    setUsTeaspoon((litersValue * 202.884).toFixed(5));
+    setUsGallon((litersValue / 3.785411784).toFixed(5));
+    setUsCup((litersValue * 4.22675284).toFixed(5));
+    setUsTablespoon((litersValue * 67.6280454).toFixed(5));
+    setUsTeaspoon((litersValue * 202.884136).toFixed(5));
   };
 
   // Conversion from US gallon to all other units
   const updateFromUsGallon = (usGallonVal: number) => {
-    const litersValue = usGallonVal / 0.264172;
+    const litersValue = usGallonVal * 3.785411784;
     setLiters(litersValue.toFixed(5));
     setDeciliters((litersValue * 10).toFixed(5));
-    setUsCup((litersValue * 4.22675).toFixed(5));
-    setUsTablespoon((litersValue * 67.628).toFixed(5));
-    setUsTeaspoon((litersValue * 202.884).toFixed(5));
+    setUsCup((usGallonVal * 16).toFixed(5));
+    setUsTablespoon((usGallonVal * 256).toFixed(5));
+    setUsTeaspoon((usGallonVal * 768).toFixed(5));
   };
 
   // Conversion from US cup to all other units
   const updateFromUsCup = (usCupVal: number) => {
-    const litersValue = usCupVal / 4.22675;
+    const litersValue = usCupVal / 4.22675284;
     setLiters(litersValue.toFixed(5));
     setDeciliters((litersValue * 10).toFixed(5));
-    setUsGallon((litersValue * 0.264172).toFixed(5));
-    setUsTablespoon((litersValue * 67.628).toFixed(5));
-    setUsTeaspoon((litersValue * 202.884).toFixed(5));
+    setUsGallon((usCupVal / 16).toFixed(5));
+    setUsTablespoon((usCupVal * 16).toFixed(5));
+    setUsTeaspoon((usCupVal * 48).toFixed(5));
   };
 
   // Conversion from US tablespoon to all other units
   const updateFromUsTablespoon = (usTablespoonVal: number) => {
-    const litersValue = usTablespoonVal / 67.628;
+    const litersValue = usTablespoonVal / 67.6280454;
     setLiters(litersValue.toFixed(5));
     setDeciliters((litersValue * 10).toFixed(5));
-    setUsGallon((litersValue * 0.264172).toFixed(5));
-    setUsCup((litersValue * 4.22675).toFixed(5));
-    setUsTeaspoon((litersValue * 202.884).toFixed(5));
+    setUsGallon((usTablespoonVal / 256).toFixed(5));
+    setUsCup((usTablespoonVal / 16).toFixed(5));
+    setUsTeaspoon((usTablespoonVal * 3).toFixed(5));
   };
 
   // Conversion from US teaspoon to all other units
   const updateFromUsTeaspoon = (usTeaspoonVal: number) => {
-    const litersValue = usTeaspoonVal / 202.884;
+    const litersValue = usTeaspoonVal / 202.884136;
     setLiters(litersValue.toFixed(5));
     setDeciliters((litersValue * 10).toFixed(5));
-    setUsGallon((litersValue * 0.264172).toFixed(5));
-    setUsCup((litersValue * 4.22675).toFixed(5));
-    setUsTablespoon((litersValue * 67.628).toFixed(5));
+    setUsGallon((usTeaspoonVal / 768).toFixed(5));
+    setUsCup((usTeaspoonVal / 48).toFixed(5));
+    setUsTablespoon((usTeaspoonVal / 3).toFixed(5));
   };
 
   const handleLitersChange = (value: string) => {

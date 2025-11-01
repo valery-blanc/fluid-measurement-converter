@@ -16,29 +16,13 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Force initial position to 0 immediately
-    api.scrollTo(0, false);
+    // Force carousel to first position on mount
+    api.reInit({ startIndex: 0 });
     setCurrent(0);
-
-    // Also force it again after a delay to ensure it sticks
-    const timer1 = setTimeout(() => {
-      api.scrollTo(0, false);
-      setCurrent(0);
-    }, 50);
-
-    const timer2 = setTimeout(() => {
-      api.scrollTo(0, false);
-      setCurrent(0);
-    }, 200);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
   }, [api]);
 
   const scrollToIndex = (index: number) => {
