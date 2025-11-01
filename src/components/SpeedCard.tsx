@@ -80,7 +80,7 @@ const SpeedCard = () => {
         {/* Km/h Section */}
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <Label htmlFor="kmh" className="text-base font-semibold text-secondary-foreground">
-            Kilomètres/heure (km/h)
+            Kilometers/hour (km/h)
           </Label>
           <Input
             id="kmh"
@@ -99,7 +99,7 @@ const SpeedCard = () => {
         {/* M/s Section */}
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <Label htmlFor="ms" className="text-base font-semibold text-secondary-foreground">
-            Mètres/seconde (m/s)
+            Meters/second (m/s)
           </Label>
           <Input
             id="ms"
@@ -117,7 +117,7 @@ const SpeedCard = () => {
         {/* MPH Section */}
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <Label htmlFor="mph" className="text-base font-semibold text-secondary-foreground">
-            Miles/heure (mph)
+            Miles/hour (mph)
           </Label>
           <Input
             id="mph"
@@ -135,7 +135,7 @@ const SpeedCard = () => {
         {/* Knots Section */}
         <div className="space-y-2 p-3 bg-muted/50 rounded-xl">
           <Label htmlFor="knots" className="text-base font-semibold text-secondary-foreground">
-            Nœuds marins (kn)
+            Knots (kn)
           </Label>
           <Input
             id="knots"

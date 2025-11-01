@@ -5,32 +5,57 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 const WeightCard = () => {
-  const [kg, setKg] = useState<string>("");
-  const [lb, setLb] = useState<string>("");
+  const [lbWhole, setLbWhole] = useState<string>("");
   const [oz, setOz] = useState<string>("");
+  const [lbDecimal, setLbDecimal] = useState<string>("");
+  const [kg, setKg] = useState<string>("");
 
-  // Conversion kg -> lb and oz
+  // Conversion lb (whole) + oz -> lb (decimal) and kg
+  const updateFromLbOz = (lbWholeVal: number, ozVal: number) => {
+    const lbDecimalValue = lbWholeVal + (ozVal / 16);
+    const kgValue = lbDecimalValue / 2.20462;
+    setLbDecimal(lbDecimalValue.toFixed(5));
+    setKg(kgValue.toFixed(5));
+  };
+
+  // Conversion lb (decimal) -> lb (whole) + oz and kg
+  const updateFromLbDecimal = (lbDecimalVal: number) => {
+    const lbWholeValue = Math.floor(lbDecimalVal);
+    const ozValue = (lbDecimalVal - lbWholeValue) * 16;
+    const kgValue = lbDecimalVal / 2.20462;
+    setLbWhole(lbWholeValue.toString());
+    setOz(ozValue.toFixed(5));
+    setKg(kgValue.toFixed(5));
+  };
+
+  // Conversion kg -> lb (whole), oz, lb (decimal)
   const updateFromKg = (kgVal: number) => {
-    const lbValue = kgVal * 2.20462;
-    const ozValue = kgVal * 35.274;
-    setLb(lbValue.toFixed(5));
+    const lbDecimalValue = kgVal * 2.20462;
+    const lbWholeValue = Math.floor(lbDecimalValue);
+    const ozValue = (lbDecimalValue - lbWholeValue) * 16;
+    setLbWhole(lbWholeValue.toString());
     setOz(ozValue.toFixed(5));
+    setLbDecimal(lbDecimalValue.toFixed(5));
   };
 
-  // Conversion lb -> kg and oz
-  const updateFromLb = (lbVal: number) => {
-    const kgValue = lbVal / 2.20462;
-    const ozValue = lbVal * 16;
-    setKg(kgValue.toFixed(5));
-    setOz(ozValue.toFixed(5));
+  const handleLbWholeChange = (value: string) => {
+    setLbWhole(value);
+    const lbWholeNum = parseFloat(value) || 0;
+    const ozNum = parseFloat(oz) || 0;
+    updateFromLbOz(lbWholeNum, ozNum);
   };
 
-  // Conversion oz -> kg and lb
-  const updateFromOz = (ozVal: number) => {
-    const kgValue = ozVal / 35.274;
-    const lbValue = ozVal / 16;
-    setKg(kgValue.toFixed(5));
-    setLb(lbValue.toFixed(5));
+  const handleOzChange = (value: string) => {
+    setOz(value);
+    const lbWholeNum = parseFloat(lbWhole) || 0;
+    const ozNum = parseFloat(value) || 0;
+    updateFromLbOz(lbWholeNum, ozNum);
+  };
+
+  const handleLbDecimalChange = (value: string) => {
+    setLbDecimal(value);
+    const lbDecimalNum = parseFloat(value) || 0;
+    updateFromLbDecimal(lbDecimalNum);
   };
 
   const handleKgChange = (value: string) => {
@@ -39,50 +64,64 @@ const WeightCard = () => {
     updateFromKg(kgNum);
   };
 
-  const handleLbChange = (value: string) => {
-    setLb(value);
-    const lbNum = parseFloat(value) || 0;
-    updateFromLb(lbNum);
-  };
-
-  const handleOzChange = (value: string) => {
-    setOz(value);
-    const ozNum = parseFloat(value) || 0;
-    updateFromOz(ozNum);
-  };
-
   return (
     <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
       <div className="space-y-2">
-        {/* Kilogrammes Section */}
+        {/* Pounds + Ounces Section - Same Line */}
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
-          <Label htmlFor="kg" className="text-base font-semibold text-secondary-foreground">
-            Kilogrammes (kg)
+          <Label className="text-base font-semibold text-secondary-foreground">
+            Pounds + Ounces
           </Label>
-          <Input
-            id="kg"
-            type="number"
-            value={kg}
-            onChange={(e) => handleKgChange(e.target.value)}
-            placeholder="0"
-            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
-            min="0"
-            step="any"
-            autoFocus
-            inputMode="numeric"
-          />
+          <div className="flex gap-2">
+            <div className="flex-1 space-y-1">
+              <Label htmlFor="lbWhole" className="text-xs text-muted-foreground">
+                Pounds
+              </Label>
+              <Input
+                id="lbWhole"
+                type="number"
+                value={lbWhole}
+                onChange={(e) => handleLbWholeChange(e.target.value)}
+                placeholder="0"
+                className="text-xl h-12 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
+                min="0"
+                step="any"
+                autoFocus
+                inputMode="numeric"
+              />
+            </div>
+            <div className="flex items-end justify-center pb-2">
+              <span className="text-xl font-bold text-muted-foreground">+</span>
+            </div>
+            <div className="flex-1 space-y-1">
+              <Label htmlFor="oz" className="text-xs text-muted-foreground">
+                Ounces
+              </Label>
+              <Input
+                id="oz"
+                type="number"
+                value={oz}
+                onChange={(e) => handleOzChange(e.target.value)}
+                placeholder="0"
+                className="text-xl h-12 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
+                min="0"
+                step="any"
+                inputMode="numeric"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Livres Section */}
+        {/* Pounds Decimal Section */}
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
-          <Label htmlFor="lb" className="text-base font-semibold text-secondary-foreground">
-            Livres (lb)
+          <Label htmlFor="lbDecimal" className="text-base font-semibold text-secondary-foreground">
+            Pounds (decimal)
           </Label>
           <Input
-            id="lb"
+            id="lbDecimal"
             type="number"
-            value={lb}
-            onChange={(e) => handleLbChange(e.target.value)}
+            value={lbDecimal}
+            onChange={(e) => handleLbDecimalChange(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-accent transition-all"
             min="0"
@@ -91,16 +130,16 @@ const WeightCard = () => {
           />
         </div>
 
-        {/* Onces Section */}
+        {/* Kilogrammes Section */}
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
-          <Label htmlFor="oz" className="text-base font-semibold text-secondary-foreground">
-            Onces (oz)
+          <Label htmlFor="kg" className="text-base font-semibold text-secondary-foreground">
+            Kilograms (kg)
           </Label>
           <Input
-            id="oz"
+            id="kg"
             type="number"
-            value={oz}
-            onChange={(e) => handleOzChange(e.target.value)}
+            value={kg}
+            onChange={(e) => handleKgChange(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
             min="0"
@@ -117,9 +156,10 @@ const WeightCard = () => {
         
         <Button 
           onClick={() => {
-            setKg("");
-            setLb("");
+            setLbWhole("");
             setOz("");
+            setLbDecimal("");
+            setKg("");
           }}
           variant="outline"
           className="w-full"

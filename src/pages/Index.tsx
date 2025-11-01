@@ -3,24 +3,30 @@ import ConversionCard from "@/components/ConversionCard";
 import WeightCard from "@/components/WeightCard";
 import SpeedCard from "@/components/SpeedCard";
 import TemperatureCard from "@/components/TemperatureCard";
+import VolumeCard from "@/components/VolumeCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Ruler, Weight, Gauge, Thermometer } from "lucide-react";
+import { Ruler, Weight, Gauge, Thermometer, Droplet } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [carouselKey, setCarouselKey] = useState(0);
 
   useEffect(() => {
     if (!api) return;
 
-    // Force initial position to 0
-    api.scrollTo(0, true);
-    setCurrent(0);
+    // Force initial position to 0 with a slight delay to ensure proper initialization
+    const timer = setTimeout(() => {
+      api.scrollTo(0, true);
+      setCurrent(0);
+    }, 10);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
+
+    return () => clearTimeout(timer);
   }, [api]);
 
   const scrollToIndex = (index: number) => {
@@ -63,10 +69,19 @@ const Index = () => {
         >
           <Thermometer className="h-5 w-5" />
         </Button>
+        <Button
+          variant={current === 4 ? "default" : "outline"}
+          size="icon"
+          onClick={() => scrollToIndex(4)}
+          className="h-12 w-12"
+        >
+          <Droplet className="h-5 w-5" />
+        </Button>
       </div>
 
       {/* Carousel */}
       <Carousel 
+        key={carouselKey}
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
@@ -88,6 +103,9 @@ const Index = () => {
           </CarouselItem>
           <CarouselItem>
             <TemperatureCard />
+          </CarouselItem>
+          <CarouselItem>
+            <VolumeCard />
           </CarouselItem>
         </CarouselContent>
       </Carousel>
