@@ -1,92 +1,93 @@
 import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import UnitSelector from "./UnitSelector";
+import { speedUnits } from "@/lib/unitDefinitions";
+import { convertSpeed } from "@/lib/unitConversions";
 
 const SpeedCard = () => {
-  const [kmh, setKmh] = useState<string>("");
-  const [ms, setMs] = useState<string>("");
-  const [mph, setMph] = useState<string>("");
-  const [knots, setKnots] = useState<string>("");
+  const [unit1, setUnit1] = useState<string>(() => localStorage.getItem("speedUnit1") || "km/h");
+  const [value1, setValue1] = useState<string>("");
+  const [unit2, setUnit2] = useState<string>(() => localStorage.getItem("speedUnit2") || "mi/h");
+  const [value2, setValue2] = useState<string>("");
+  const [unit3, setUnit3] = useState<string>(() => localStorage.getItem("speedUnit3") || "km/s");
+  const [value3, setValue3] = useState<string>("");
+  const [unit4, setUnit4] = useState<string>(() => localStorage.getItem("speedUnit4") || "kts");
+  const [value4, setValue4] = useState<string>("");
 
-  // Conversion km/h -> others
-  const updateFromKmh = (kmhVal: number) => {
-    const msValue = kmhVal / 3.6;
-    const mphValue = kmhVal / 1.60934;
-    const knotsValue = kmhVal / 1.852;
-    setMs(msValue.toFixed(5));
-    setMph(mphValue.toFixed(5));
-    setKnots(knotsValue.toFixed(5));
+  useEffect(() => localStorage.setItem("speedUnit1", unit1), [unit1]);
+  useEffect(() => localStorage.setItem("speedUnit2", unit2), [unit2]);
+  useEffect(() => localStorage.setItem("speedUnit3", unit3), [unit3]);
+  useEffect(() => localStorage.setItem("speedUnit4", unit4), [unit4]);
+
+  const updateAll = (val: number, fromUnit: string) => {
+    if (fromUnit !== unit1) setValue1(convertSpeed(val, fromUnit, unit1).toFixed(5));
+    if (fromUnit !== unit2) setValue2(convertSpeed(val, fromUnit, unit2).toFixed(5));
+    if (fromUnit !== unit3) setValue3(convertSpeed(val, fromUnit, unit3).toFixed(5));
+    if (fromUnit !== unit4) setValue4(convertSpeed(val, fromUnit, unit4).toFixed(5));
   };
 
-  // Conversion m/s -> others
-  const updateFromMs = (msVal: number) => {
-    const kmhValue = msVal * 3.6;
-    const mphValue = msVal * 2.23694;
-    const knotsValue = msVal * 1.94384;
-    setKmh(kmhValue.toFixed(5));
-    setMph(mphValue.toFixed(5));
-    setKnots(knotsValue.toFixed(5));
+  const handleValue1Change = (value: string) => {
+    setValue1(value);
+    updateAll(parseFloat(value) || 0, unit1);
   };
 
-  // Conversion mph -> others
-  const updateFromMph = (mphVal: number) => {
-    const kmhValue = mphVal * 1.60934;
-    const msValue = mphVal / 2.23694;
-    const knotsValue = mphVal / 1.15078;
-    setKmh(kmhValue.toFixed(5));
-    setMs(msValue.toFixed(5));
-    setKnots(knotsValue.toFixed(5));
+  const handleValue2Change = (value: string) => {
+    setValue2(value);
+    updateAll(parseFloat(value) || 0, unit2);
   };
 
-  // Conversion knots -> others
-  const updateFromKnots = (knotsVal: number) => {
-    const kmhValue = knotsVal * 1.852;
-    const msValue = knotsVal / 1.94384;
-    const mphValue = knotsVal * 1.15078;
-    setKmh(kmhValue.toFixed(5));
-    setMs(msValue.toFixed(5));
-    setMph(mphValue.toFixed(5));
+  const handleValue3Change = (value: string) => {
+    setValue3(value);
+    updateAll(parseFloat(value) || 0, unit3);
   };
 
-  const handleKmhChange = (value: string) => {
-    setKmh(value);
-    const kmhNum = parseFloat(value) || 0;
-    updateFromKmh(kmhNum);
+  const handleValue4Change = (value: string) => {
+    setValue4(value);
+    updateAll(parseFloat(value) || 0, unit4);
   };
 
-  const handleMsChange = (value: string) => {
-    setMs(value);
-    const msNum = parseFloat(value) || 0;
-    updateFromMs(msNum);
+  const handleUnit1Change = (newUnit: string) => {
+    const currentValue = parseFloat(value1) || 0;
+    setUnit1(newUnit);
+    setValue1(convertSpeed(currentValue, unit1, newUnit).toFixed(5));
   };
 
-  const handleMphChange = (value: string) => {
-    setMph(value);
-    const mphNum = parseFloat(value) || 0;
-    updateFromMph(mphNum);
+  const handleUnit2Change = (newUnit: string) => {
+    const currentValue = parseFloat(value2) || 0;
+    setUnit2(newUnit);
+    setValue2(convertSpeed(currentValue, unit2, newUnit).toFixed(5));
   };
 
-  const handleKnotsChange = (value: string) => {
-    setKnots(value);
-    const knotsNum = parseFloat(value) || 0;
-    updateFromKnots(knotsNum);
+  const handleUnit3Change = (newUnit: string) => {
+    const currentValue = parseFloat(value3) || 0;
+    setUnit3(newUnit);
+    setValue3(convertSpeed(currentValue, unit3, newUnit).toFixed(5));
   };
+
+  const handleUnit4Change = (newUnit: string) => {
+    const currentValue = parseFloat(value4) || 0;
+    setUnit4(newUnit);
+    setValue4(convertSpeed(currentValue, unit4, newUnit).toFixed(5));
+  };
+
+  const getUnitLabel = (unit: string) => speedUnits.find(u => u.value === unit)?.label.split("(")[1].replace(")", "") || unit;
 
   return (
     <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
       <div className="space-y-2">
-        {/* Km/h Section */}
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
-          <Label htmlFor="kmh" className="text-base font-semibold text-secondary-foreground">
-            Kilometers/hour (km/h)
-          </Label>
+          <UnitSelector
+            label="Speed"
+            currentUnit={getUnitLabel(unit1)}
+            units={speedUnits}
+            onUnitChange={handleUnit1Change}
+          />
           <Input
-            id="kmh"
             type="number"
-            value={kmh}
-            onChange={(e) => handleKmhChange(e.target.value)}
+            value={value1}
+            onChange={(e) => handleValue1Change(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
             min="0"
@@ -96,16 +97,17 @@ const SpeedCard = () => {
           />
         </div>
 
-        {/* M/s Section */}
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
-          <Label htmlFor="ms" className="text-base font-semibold text-secondary-foreground">
-            Meters/second (m/s)
-          </Label>
+          <UnitSelector
+            label="Speed"
+            currentUnit={getUnitLabel(unit2)}
+            units={speedUnits}
+            onUnitChange={handleUnit2Change}
+          />
           <Input
-            id="ms"
             type="number"
-            value={ms}
-            onChange={(e) => handleMsChange(e.target.value)}
+            value={value2}
+            onChange={(e) => handleValue2Change(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-accent transition-all"
             min="0"
@@ -114,16 +116,17 @@ const SpeedCard = () => {
           />
         </div>
 
-        {/* MPH Section */}
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
-          <Label htmlFor="mph" className="text-base font-semibold text-secondary-foreground">
-            Miles/hour (mph)
-          </Label>
+          <UnitSelector
+            label="Speed"
+            currentUnit={getUnitLabel(unit3)}
+            units={speedUnits}
+            onUnitChange={handleUnit3Change}
+          />
           <Input
-            id="mph"
             type="number"
-            value={mph}
-            onChange={(e) => handleMphChange(e.target.value)}
+            value={value3}
+            onChange={(e) => handleValue3Change(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
             min="0"
@@ -132,16 +135,17 @@ const SpeedCard = () => {
           />
         </div>
 
-        {/* Knots Section */}
         <div className="space-y-2 p-3 bg-muted/50 rounded-xl">
-          <Label htmlFor="knots" className="text-base font-semibold text-secondary-foreground">
-            Knots (kn)
-          </Label>
+          <UnitSelector
+            label="Speed"
+            currentUnit={getUnitLabel(unit4)}
+            units={speedUnits}
+            onUnitChange={handleUnit4Change}
+          />
           <Input
-            id="knots"
             type="number"
-            value={knots}
-            onChange={(e) => handleKnotsChange(e.target.value)}
+            value={value4}
+            onChange={(e) => handleValue4Change(e.target.value)}
             placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
             min="0"
@@ -158,10 +162,10 @@ const SpeedCard = () => {
         
         <Button 
           onClick={() => {
-            setKmh("");
-            setMs("");
-            setMph("");
-            setKnots("");
+            setValue1("");
+            setValue2("");
+            setValue3("");
+            setValue4("");
           }}
           variant="outline"
           className="w-full"

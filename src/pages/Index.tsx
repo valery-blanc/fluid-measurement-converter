@@ -11,21 +11,27 @@ import { Ruler, Weight, Gauge, Thermometer, Droplet } from "lucide-react";
 const Index = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [carouselKey, setCarouselKey] = useState(0);
 
   useEffect(() => {
     if (!api) return;
 
-    // Force carousel to first position on mount
-    api.reInit({ startIndex: 0 });
+    // Set initial state
     setCurrent(0);
+    
+    // Force scroll to first position
+    const timer = setTimeout(() => {
+      api.scrollTo(0, false);
+    }, 0);
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
+
+    return () => clearTimeout(timer);
   }, [api]);
 
   const scrollToIndex = (index: number) => {
+    setCurrent(index);
     api?.scrollTo(index);
   };
 
@@ -77,14 +83,12 @@ const Index = () => {
 
       {/* Carousel */}
       <Carousel 
-        key={carouselKey}
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
           startIndex: 0,
           loop: false,
-          dragFree: false,
-          containScroll: "trimSnaps"
+          align: "start"
         }}
       >
         <CarouselContent>
