@@ -95,6 +95,7 @@ const ConversionCard = () => {
 
   const currentUnit1Label = lengthUnits.find(u => u.value === unit1)?.label.split("(")[1].replace(")", "") || unit1;
   const currentUnit2Label = lengthUnits.find(u => u.value === unit2)?.label.split("(")[1].replace(")", "") || unit2;
+  const getFullUnitLabel = (unit: string) => lengthUnits.find(u => u.value === unit)?.label || unit;
 
   return (
     <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
@@ -140,7 +141,7 @@ const ConversionCard = () => {
         {/* Unit 1 Section */}
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <UnitSelector
-            label="Length"
+            label={getFullUnitLabel(unit1)}
             currentUnit={currentUnit1Label}
             units={lengthUnits}
             onUnitChange={handleUnit1Change}
@@ -161,7 +162,7 @@ const ConversionCard = () => {
         {/* Unit 2 Section */}
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <UnitSelector
-            label="Length"
+            label={getFullUnitLabel(unit2)}
             currentUnit={currentUnit2Label}
             units={lengthUnits}
             onUnitChange={handleUnit2Change}

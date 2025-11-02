@@ -73,13 +73,14 @@ const SpeedCard = () => {
   };
 
   const getUnitLabel = (unit: string) => speedUnits.find(u => u.value === unit)?.label.split("(")[1].replace(")", "") || unit;
+  const getFullUnitLabel = (unit: string) => speedUnits.find(u => u.value === unit)?.label || unit;
 
   return (
     <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
       <div className="space-y-2">
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <UnitSelector
-            label="Speed"
+            label={getFullUnitLabel(unit1)}
             currentUnit={getUnitLabel(unit1)}
             units={speedUnits}
             onUnitChange={handleUnit1Change}
@@ -99,7 +100,7 @@ const SpeedCard = () => {
 
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <UnitSelector
-            label="Speed"
+            label={getFullUnitLabel(unit2)}
             currentUnit={getUnitLabel(unit2)}
             units={speedUnits}
             onUnitChange={handleUnit2Change}
@@ -118,7 +119,7 @@ const SpeedCard = () => {
 
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <UnitSelector
-            label="Speed"
+            label={getFullUnitLabel(unit3)}
             currentUnit={getUnitLabel(unit3)}
             units={speedUnits}
             onUnitChange={handleUnit3Change}
@@ -137,7 +138,7 @@ const SpeedCard = () => {
 
         <div className="space-y-2 p-3 bg-muted/50 rounded-xl">
           <UnitSelector
-            label="Speed"
+            label={getFullUnitLabel(unit4)}
             currentUnit={getUnitLabel(unit4)}
             units={speedUnits}
             onUnitChange={handleUnit4Change}

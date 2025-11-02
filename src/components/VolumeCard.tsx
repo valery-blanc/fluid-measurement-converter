@@ -79,13 +79,14 @@ const VolumeCard = () => {
   };
 
   const getUnitLabel = (unit: string) => volumeUnits.find(u => u.value === unit)?.label.split("(")[1].replace(")", "") || unit;
+  const getFullUnitLabel = (unit: string) => volumeUnits.find(u => u.value === unit)?.label || unit;
 
   return (
     <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
       <div className="space-y-2">
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit1)}
             currentUnit={getUnitLabel(unit1)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit1, value1, unit1)}
@@ -105,7 +106,7 @@ const VolumeCard = () => {
 
         <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit2)}
             currentUnit={getUnitLabel(unit2)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit2, value2, unit2)}
@@ -124,7 +125,7 @@ const VolumeCard = () => {
 
         <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit3)}
             currentUnit={getUnitLabel(unit3)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit3, value3, unit3)}
@@ -143,7 +144,7 @@ const VolumeCard = () => {
 
         <div className="space-y-2 p-3 bg-secondary/20 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit4)}
             currentUnit={getUnitLabel(unit4)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit4, value4, unit4)}
@@ -162,7 +163,7 @@ const VolumeCard = () => {
 
         <div className="space-y-2 p-3 bg-accent/30 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit5)}
             currentUnit={getUnitLabel(unit5)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit5, value5, unit5)}
@@ -181,7 +182,7 @@ const VolumeCard = () => {
 
         <div className="space-y-2 p-3 bg-primary/15 rounded-xl">
           <UnitSelector
-            label="Volume"
+            label={getFullUnitLabel(unit6)}
             currentUnit={getUnitLabel(unit6)}
             units={volumeUnits}
             onUnitChange={handleUnitChange(setUnit6, value6, unit6)}
