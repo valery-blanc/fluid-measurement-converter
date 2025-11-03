@@ -15,12 +15,12 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Set initial state
-    setCurrent(0);
+    // Set initial state to last page (length - index 3)
+    setCurrent(3);
     
-    // Force scroll to first position
+    // Force scroll to last position
     const timer = setTimeout(() => {
-      api.scrollTo(0, false);
+      api.scrollTo(3, false);
     }, 0);
 
     api.on("select", () => {
@@ -45,7 +45,7 @@ const Index = () => {
           onClick={() => scrollToIndex(0)}
           className="h-12 w-12"
         >
-          <Ruler className="h-5 w-5" />
+          <Gauge className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 1 ? "default" : "outline"}
@@ -53,7 +53,7 @@ const Index = () => {
           onClick={() => scrollToIndex(1)}
           className="h-12 w-12"
         >
-          <Weight className="h-5 w-5" />
+          <Thermometer className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 2 ? "default" : "outline"}
@@ -61,7 +61,7 @@ const Index = () => {
           onClick={() => scrollToIndex(2)}
           className="h-12 w-12"
         >
-          <Gauge className="h-5 w-5" />
+          <Weight className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 3 ? "default" : "outline"}
@@ -69,7 +69,7 @@ const Index = () => {
           onClick={() => scrollToIndex(3)}
           className="h-12 w-12"
         >
-          <Thermometer className="h-5 w-5" />
+          <Ruler className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 4 ? "default" : "outline"}
@@ -86,23 +86,23 @@ const Index = () => {
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
-          startIndex: 0,
+          startIndex: 3,
           loop: false,
           align: "start"
         }}
       >
         <CarouselContent>
           <CarouselItem>
-            <ConversionCard />
+            <SpeedCard />
+          </CarouselItem>
+          <CarouselItem>
+            <TemperatureCard />
           </CarouselItem>
           <CarouselItem>
             <WeightCard />
           </CarouselItem>
           <CarouselItem>
-            <SpeedCard />
-          </CarouselItem>
-          <CarouselItem>
-            <TemperatureCard />
+            <ConversionCard />
           </CarouselItem>
           <CarouselItem>
             <VolumeCard />

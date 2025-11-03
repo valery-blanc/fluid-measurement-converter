@@ -22,10 +22,11 @@ const SpeedCard = () => {
   useEffect(() => localStorage.setItem("speedUnit4", unit4), [unit4]);
 
   const updateAll = (val: number, fromUnit: string) => {
-    if (fromUnit !== unit1) setValue1(convertSpeed(val, fromUnit, unit1).toFixed(5));
-    if (fromUnit !== unit2) setValue2(convertSpeed(val, fromUnit, unit2).toFixed(5));
-    if (fromUnit !== unit3) setValue3(convertSpeed(val, fromUnit, unit3).toFixed(5));
-    if (fromUnit !== unit4) setValue4(convertSpeed(val, fromUnit, unit4).toFixed(5));
+    // Always update all fields, even if they have the same unit
+    setValue1(convertSpeed(val, fromUnit, unit1).toFixed(5));
+    setValue2(convertSpeed(val, fromUnit, unit2).toFixed(5));
+    setValue3(convertSpeed(val, fromUnit, unit3).toFixed(5));
+    setValue4(convertSpeed(val, fromUnit, unit4).toFixed(5));
   };
 
   const handleValue1Change = (value: string) => {

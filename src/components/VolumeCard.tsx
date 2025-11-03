@@ -15,25 +15,18 @@ const VolumeCard = () => {
   const [value3, setValue3] = useState<string>("");
   const [unit4, setUnit4] = useState<string>(() => localStorage.getItem("volumeUnit4") || "cup-us");
   const [value4, setValue4] = useState<string>("");
-  const [unit5, setUnit5] = useState<string>(() => localStorage.getItem("volumeUnit5") || "tbsp-us");
-  const [value5, setValue5] = useState<string>("");
-  const [unit6, setUnit6] = useState<string>(() => localStorage.getItem("volumeUnit6") || "tsp-us");
-  const [value6, setValue6] = useState<string>("");
 
   useEffect(() => localStorage.setItem("volumeUnit1", unit1), [unit1]);
   useEffect(() => localStorage.setItem("volumeUnit2", unit2), [unit2]);
   useEffect(() => localStorage.setItem("volumeUnit3", unit3), [unit3]);
   useEffect(() => localStorage.setItem("volumeUnit4", unit4), [unit4]);
-  useEffect(() => localStorage.setItem("volumeUnit5", unit5), [unit5]);
-  useEffect(() => localStorage.setItem("volumeUnit6", unit6), [unit6]);
 
   const updateAll = (val: number, fromUnit: string) => {
-    if (fromUnit !== unit1) setValue1(convertVolume(val, fromUnit, unit1).toFixed(5));
-    if (fromUnit !== unit2) setValue2(convertVolume(val, fromUnit, unit2).toFixed(5));
-    if (fromUnit !== unit3) setValue3(convertVolume(val, fromUnit, unit3).toFixed(5));
-    if (fromUnit !== unit4) setValue4(convertVolume(val, fromUnit, unit4).toFixed(5));
-    if (fromUnit !== unit5) setValue5(convertVolume(val, fromUnit, unit5).toFixed(5));
-    if (fromUnit !== unit6) setValue6(convertVolume(val, fromUnit, unit6).toFixed(5));
+    // Always update all fields, even if they have the same unit
+    setValue1(convertVolume(val, fromUnit, unit1).toFixed(5));
+    setValue2(convertVolume(val, fromUnit, unit2).toFixed(5));
+    setValue3(convertVolume(val, fromUnit, unit3).toFixed(5));
+    setValue4(convertVolume(val, fromUnit, unit4).toFixed(5));
   };
 
   const handleValue1Change = (value: string) => {
@@ -56,26 +49,28 @@ const VolumeCard = () => {
     updateAll(parseFloat(value) || 0, unit4);
   };
 
-  const handleValue5Change = (value: string) => {
-    setValue5(value);
-    updateAll(parseFloat(value) || 0, unit5);
+  const handleUnit1Change = (newUnit: string) => {
+    const currentValue = parseFloat(value1) || 0;
+    setUnit1(newUnit);
+    setValue1(convertVolume(currentValue, unit1, newUnit).toFixed(5));
   };
 
-  const handleValue6Change = (value: string) => {
-    setValue6(value);
-    updateAll(parseFloat(value) || 0, unit6);
+  const handleUnit2Change = (newUnit: string) => {
+    const currentValue = parseFloat(value2) || 0;
+    setUnit2(newUnit);
+    setValue2(convertVolume(currentValue, unit2, newUnit).toFixed(5));
   };
 
-  const handleUnitChange = (setter: (unit: string) => void, currentValue: string, currentUnit: string) => (newUnit: string) => {
-    const val = parseFloat(currentValue) || 0;
-    setter(newUnit);
-    const converted = convertVolume(val, currentUnit, newUnit);
-    if (setter === setUnit1) setValue1(converted.toFixed(5));
-    else if (setter === setUnit2) setValue2(converted.toFixed(5));
-    else if (setter === setUnit3) setValue3(converted.toFixed(5));
-    else if (setter === setUnit4) setValue4(converted.toFixed(5));
-    else if (setter === setUnit5) setValue5(converted.toFixed(5));
-    else if (setter === setUnit6) setValue6(converted.toFixed(5));
+  const handleUnit3Change = (newUnit: string) => {
+    const currentValue = parseFloat(value3) || 0;
+    setUnit3(newUnit);
+    setValue3(convertVolume(currentValue, unit3, newUnit).toFixed(5));
+  };
+
+  const handleUnit4Change = (newUnit: string) => {
+    const currentValue = parseFloat(value4) || 0;
+    setUnit4(newUnit);
+    setValue4(convertVolume(currentValue, unit4, newUnit).toFixed(5));
   };
 
   const getUnitLabel = (unit: string) => volumeUnits.find(u => u.value === unit)?.label.split("(")[1].replace(")", "") || unit;
@@ -89,7 +84,7 @@ const VolumeCard = () => {
             label={getFullUnitLabel(unit1)}
             currentUnit={getUnitLabel(unit1)}
             units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit1, value1, unit1)}
+            onUnitChange={handleUnit1Change}
           />
           <Input
             type="number"
@@ -109,7 +104,7 @@ const VolumeCard = () => {
             label={getFullUnitLabel(unit2)}
             currentUnit={getUnitLabel(unit2)}
             units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit2, value2, unit2)}
+            onUnitChange={handleUnit2Change}
           />
           <Input
             type="number"
@@ -128,7 +123,7 @@ const VolumeCard = () => {
             label={getFullUnitLabel(unit3)}
             currentUnit={getUnitLabel(unit3)}
             units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit3, value3, unit3)}
+            onUnitChange={handleUnit3Change}
           />
           <Input
             type="number"
@@ -142,57 +137,19 @@ const VolumeCard = () => {
           />
         </div>
 
-        <div className="space-y-2 p-3 bg-secondary/20 rounded-xl">
+        <div className="space-y-2 p-3 bg-accent/10 rounded-xl">
           <UnitSelector
             label={getFullUnitLabel(unit4)}
             currentUnit={getUnitLabel(unit4)}
             units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit4, value4, unit4)}
+            onUnitChange={handleUnit4Change}
           />
           <Input
             type="number"
             value={value4}
             onChange={(e) => handleValue4Change(e.target.value)}
             placeholder="0"
-            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-secondary transition-all"
-            min="0"
-            step="any"
-            inputMode="numeric"
-          />
-        </div>
-
-        <div className="space-y-2 p-3 bg-accent/30 rounded-xl">
-          <UnitSelector
-            label={getFullUnitLabel(unit5)}
-            currentUnit={getUnitLabel(unit5)}
-            units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit5, value5, unit5)}
-          />
-          <Input
-            type="number"
-            value={value5}
-            onChange={(e) => handleValue5Change(e.target.value)}
-            placeholder="0"
             className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-accent transition-all"
-            min="0"
-            step="any"
-            inputMode="numeric"
-          />
-        </div>
-
-        <div className="space-y-2 p-3 bg-primary/15 rounded-xl">
-          <UnitSelector
-            label={getFullUnitLabel(unit6)}
-            currentUnit={getUnitLabel(unit6)}
-            units={volumeUnits}
-            onUnitChange={handleUnitChange(setUnit6, value6, unit6)}
-          />
-          <Input
-            type="number"
-            value={value6}
-            onChange={(e) => handleValue6Change(e.target.value)}
-            placeholder="0"
-            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
             min="0"
             step="any"
             inputMode="numeric"
@@ -211,8 +168,6 @@ const VolumeCard = () => {
             setValue2("");
             setValue3("");
             setValue4("");
-            setValue5("");
-            setValue6("");
           }}
           variant="outline"
           className="w-full"

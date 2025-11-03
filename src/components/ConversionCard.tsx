@@ -37,7 +37,9 @@ const ConversionCard = () => {
     const inchesValue = totalInches % 12;
     setFeet(feetValue.toString());
     setInches(inchesValue.toFixed(5));
-    const val2 = convertLength(val, unit1, unit2);
+    // Always convert, even if units are the same
+    const inInches = convertLength(val, unit1, "in");
+    const val2 = convertLength(inInches, "in", unit2);
     setValue2(val2.toFixed(5));
   };
 
@@ -47,7 +49,9 @@ const ConversionCard = () => {
     const inchesValue = totalInches % 12;
     setFeet(feetValue.toString());
     setInches(inchesValue.toFixed(5));
-    const val1 = convertLength(val, unit2, unit1);
+    // Always convert, even if units are the same
+    const inInches = convertLength(val, unit2, "in");
+    const val1 = convertLength(inInches, "in", unit1);
     setValue1(val1.toFixed(5));
   };
 
