@@ -15,12 +15,12 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Set initial state to last page (length - index 3)
-    setCurrent(3);
+    // Set initial state to last page (length - index 4)
+    setCurrent(4);
     
     // Force scroll to last position
     const timer = setTimeout(() => {
-      api.scrollTo(3, false);
+      api.scrollTo(4, false);
     }, 0);
 
     api.on("select", () => {
@@ -69,7 +69,7 @@ const Index = () => {
           onClick={() => scrollToIndex(3)}
           className="h-12 w-12"
         >
-          <Ruler className="h-5 w-5" />
+          <Droplet className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 4 ? "default" : "outline"}
@@ -77,7 +77,7 @@ const Index = () => {
           onClick={() => scrollToIndex(4)}
           className="h-12 w-12"
         >
-          <Droplet className="h-5 w-5" />
+          <Ruler className="h-5 w-5" />
         </Button>
       </div>
 
@@ -86,7 +86,7 @@ const Index = () => {
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
-          startIndex: 3,
+          startIndex: 4,
           loop: false,
           align: "start"
         }}
@@ -102,10 +102,10 @@ const Index = () => {
             <WeightCard />
           </CarouselItem>
           <CarouselItem>
-            <ConversionCard />
+            <VolumeCard />
           </CarouselItem>
           <CarouselItem>
-            <VolumeCard />
+            <ConversionCard />
           </CarouselItem>
         </CarouselContent>
       </Carousel>
