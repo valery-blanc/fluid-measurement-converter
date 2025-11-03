@@ -16,10 +16,8 @@ export const weightUnits = [
   { value: "kg", label: "Kilograms (kg)" },
   { value: "t", label: "Tonnes (t)" },
   { value: "c", label: "Carats (c)" },
-  { value: "lb-us", label: "Pounds US (lb)" },
-  { value: "lb-uk", label: "Pounds UK (lb)" },
-  { value: "oz-us", label: "Ounces US (oz)" },
-  { value: "oz-uk", label: "Ounces UK (oz)" },
+  { value: "lb", label: "Pounds (lb)" },
+  { value: "oz", label: "Ounces (oz)" },
   { value: "N", label: "Newtons (N)" },
 ];
 

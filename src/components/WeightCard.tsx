@@ -8,10 +8,9 @@ import { weightUnits } from "@/lib/unitDefinitions";
 import { convertWeight } from "@/lib/unitConversions";
 
 const WeightCard = () => {
-  const [lbOzType, setLbOzType] = useState<string>(() => localStorage.getItem("weightLbOzType") || "us");
   const [lbWhole, setLbWhole] = useState<string>("");
   const [oz, setOz] = useState<string>("");
-  const [unit1, setUnit1] = useState<string>(() => localStorage.getItem("weightUnit1") || "lb-us");
+  const [unit1, setUnit1] = useState<string>(() => localStorage.getItem("weightUnit1") || "lb");
   const [value1, setValue1] = useState<string>("");
   const [unit2, setUnit2] = useState<string>(() => localStorage.getItem("weightUnit2") || "kg");
   const [value2, setValue2] = useState<string>("");
@@ -24,42 +23,35 @@ const WeightCard = () => {
     localStorage.setItem("weightUnit2", unit2);
   }, [unit2]);
 
-  useEffect(() => {
-    localStorage.setItem("weightLbOzType", lbOzType);
-  }, [lbOzType]);
-
   const updateFromLbOz = (lbVal: number, ozVal: number) => {
     const totalOz = lbVal * 16 + ozVal;
-    const ozUnit = lbOzType === "us" ? "oz-us" : "oz-uk";
-    const val1 = convertWeight(totalOz, ozUnit, unit1);
-    const val2 = convertWeight(totalOz, ozUnit, unit2);
+    const val1 = convertWeight(totalOz, "oz", unit1);
+    const val2 = convertWeight(totalOz, "oz", unit2);
     setValue1(val1.toFixed(5));
     setValue2(val2.toFixed(5));
   };
 
   const updateFromValue1 = (val: number) => {
-    const ozUnit = lbOzType === "us" ? "oz-us" : "oz-uk";
-    const totalOz = convertWeight(val, unit1, ozUnit);
+    const totalOz = convertWeight(val, unit1, "oz");
     const lbValue = Math.floor(totalOz / 16);
     const ozValue = totalOz % 16;
     setLbWhole(lbValue.toString());
     setOz(ozValue.toFixed(5));
     // Always convert, even if units are the same
-    const inOz = convertWeight(val, unit1, ozUnit);
-    const val2 = convertWeight(inOz, ozUnit, unit2);
+    const inOz = convertWeight(val, unit1, "oz");
+    const val2 = convertWeight(inOz, "oz", unit2);
     setValue2(val2.toFixed(5));
   };
 
   const updateFromValue2 = (val: number) => {
-    const ozUnit = lbOzType === "us" ? "oz-us" : "oz-uk";
-    const totalOz = convertWeight(val, unit2, ozUnit);
+    const totalOz = convertWeight(val, unit2, "oz");
     const lbValue = Math.floor(totalOz / 16);
     const ozValue = totalOz % 16;
     setLbWhole(lbValue.toString());
     setOz(ozValue.toFixed(5));
     // Always convert, even if units are the same
-    const inOz = convertWeight(val, unit2, ozUnit);
-    const val1 = convertWeight(inOz, ozUnit, unit1);
+    const inOz = convertWeight(val, unit2, "oz");
+    const val1 = convertWeight(inOz, "oz", unit1);
     setValue1(val1.toFixed(5));
   };
 
@@ -91,19 +83,17 @@ const WeightCard = () => {
 
   const handleUnit1Change = (newUnit: string) => {
     const currentValue = parseFloat(value1) || 0;
-    const ozUnit = lbOzType === "us" ? "oz-us" : "oz-uk";
-    const inOz = convertWeight(currentValue, unit1, ozUnit);
+    const inOz = convertWeight(currentValue, unit1, "oz");
     setUnit1(newUnit);
-    const newValue = convertWeight(inOz, ozUnit, newUnit);
+    const newValue = convertWeight(inOz, "oz", newUnit);
     setValue1(newValue.toFixed(5));
   };
 
   const handleUnit2Change = (newUnit: string) => {
     const currentValue = parseFloat(value2) || 0;
-    const ozUnit = lbOzType === "us" ? "oz-us" : "oz-uk";
-    const inOz = convertWeight(currentValue, unit2, ozUnit);
+    const inOz = convertWeight(currentValue, unit2, "oz");
     setUnit2(newUnit);
-    const newValue = convertWeight(inOz, ozUnit, newUnit);
+    const newValue = convertWeight(inOz, "oz", newUnit);
     setValue2(newValue.toFixed(5));
   };
 
@@ -116,15 +106,7 @@ const WeightCard = () => {
       <div className="space-y-2">
         {/* Pounds + Ounces Section */}
         <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
-          <UnitSelector
-            label={lbOzType === "us" ? "Pounds + Ounces US" : "Pounds + Ounces UK"}
-            currentUnit={lbOzType === "us" ? "US" : "UK"}
-            units={[
-              { value: "us", label: "US" },
-              { value: "uk", label: "UK" }
-            ]}
-            onUnitChange={setLbOzType}
-          />
+          <div className="text-base font-semibold text-secondary-foreground mb-2">Pounds + Ounces</div>
           <div className="flex gap-2">
             <div className="flex-1">
               <Label htmlFor="lbWhole" className="text-sm text-muted-foreground">Pounds (lb)</Label>
