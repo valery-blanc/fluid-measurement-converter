@@ -21,32 +21,52 @@ const SpeedCard = () => {
   useEffect(() => localStorage.setItem("speedUnit3", unit3), [unit3]);
   useEffect(() => localStorage.setItem("speedUnit4", unit4), [unit4]);
 
-  const updateAll = (val: number, fromUnit: string) => {
-    // Always update all fields, even if they have the same unit
-    setValue1(convertSpeed(val, fromUnit, unit1).toFixed(5));
-    setValue2(convertSpeed(val, fromUnit, unit2).toFixed(5));
-    setValue3(convertSpeed(val, fromUnit, unit3).toFixed(5));
-    setValue4(convertSpeed(val, fromUnit, unit4).toFixed(5));
+  const updateFromValue1 = (val: number) => {
+    setValue2(convertSpeed(val, unit1, unit2).toFixed(5));
+    setValue3(convertSpeed(val, unit1, unit3).toFixed(5));
+    setValue4(convertSpeed(val, unit1, unit4).toFixed(5));
+  };
+
+  const updateFromValue2 = (val: number) => {
+    setValue1(convertSpeed(val, unit2, unit1).toFixed(5));
+    setValue3(convertSpeed(val, unit2, unit3).toFixed(5));
+    setValue4(convertSpeed(val, unit2, unit4).toFixed(5));
+  };
+
+  const updateFromValue3 = (val: number) => {
+    setValue1(convertSpeed(val, unit3, unit1).toFixed(5));
+    setValue2(convertSpeed(val, unit3, unit2).toFixed(5));
+    setValue4(convertSpeed(val, unit3, unit4).toFixed(5));
+  };
+
+  const updateFromValue4 = (val: number) => {
+    setValue1(convertSpeed(val, unit4, unit1).toFixed(5));
+    setValue2(convertSpeed(val, unit4, unit2).toFixed(5));
+    setValue3(convertSpeed(val, unit4, unit3).toFixed(5));
   };
 
   const handleValue1Change = (value: string) => {
     setValue1(value);
-    updateAll(parseFloat(value) || 0, unit1);
+    const val = parseFloat(value) || 0;
+    updateFromValue1(val);
   };
 
   const handleValue2Change = (value: string) => {
     setValue2(value);
-    updateAll(parseFloat(value) || 0, unit2);
+    const val = parseFloat(value) || 0;
+    updateFromValue2(val);
   };
 
   const handleValue3Change = (value: string) => {
     setValue3(value);
-    updateAll(parseFloat(value) || 0, unit3);
+    const val = parseFloat(value) || 0;
+    updateFromValue3(val);
   };
 
   const handleValue4Change = (value: string) => {
     setValue4(value);
-    updateAll(parseFloat(value) || 0, unit4);
+    const val = parseFloat(value) || 0;
+    updateFromValue4(val);
   };
 
   const handleUnit1Change = (newUnit: string) => {
