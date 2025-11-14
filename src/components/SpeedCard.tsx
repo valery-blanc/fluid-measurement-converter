@@ -177,24 +177,18 @@ const SpeedCard = () => {
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="text-center text-sm text-muted-foreground">
-          <p>1 km/h = 0.28 m/s • 1 mph = 1.61 km/h</p>
-        </div>
-        
-        <Button 
-          onClick={() => {
-            setValue1("");
-            setValue2("");
-            setValue3("");
-            setValue4("");
-          }}
-          variant="outline"
-          className="w-full"
-        >
-          Clear
-        </Button>
-      </div>
+      <Button 
+        onClick={() => {
+          setValue1("");
+          setValue2("");
+          setValue3("");
+          setValue4("");
+        }}
+        variant="outline"
+        className="w-full"
+      >
+        Clear
+      </Button>
     </Card>
   );
 };
