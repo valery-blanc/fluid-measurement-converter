@@ -4,9 +4,10 @@ import WeightCard from "@/components/WeightCard";
 import SpeedCard from "@/components/SpeedCard";
 import TemperatureCard from "@/components/TemperatureCard";
 import VolumeCard from "@/components/VolumeCard";
+import AreaCard from "@/components/AreaCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Ruler, Weight, Gauge, Thermometer, Droplet } from "lucide-react";
+import { Ruler, Weight, Gauge, Thermometer, Droplet, Square } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<CarouselApi>();
@@ -15,12 +16,12 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Set initial state to last page (length - index 4)
-    setCurrent(4);
+    // Set initial state to first page (index 0)
+    setCurrent(0);
     
-    // Force scroll to last position
+    // Force scroll to first position
     const timer = setTimeout(() => {
-      api.scrollTo(4, false);
+      api.scrollTo(0, false);
     }, 0);
 
     api.on("select", () => {
@@ -45,7 +46,7 @@ const Index = () => {
           onClick={() => scrollToIndex(0)}
           className="h-12 w-12"
         >
-          <Gauge className="h-5 w-5" />
+          <Square className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 1 ? "default" : "outline"}
@@ -53,7 +54,7 @@ const Index = () => {
           onClick={() => scrollToIndex(1)}
           className="h-12 w-12"
         >
-          <Thermometer className="h-5 w-5" />
+          <Gauge className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 2 ? "default" : "outline"}
@@ -61,7 +62,7 @@ const Index = () => {
           onClick={() => scrollToIndex(2)}
           className="h-12 w-12"
         >
-          <Weight className="h-5 w-5" />
+          <Thermometer className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 3 ? "default" : "outline"}
@@ -69,12 +70,20 @@ const Index = () => {
           onClick={() => scrollToIndex(3)}
           className="h-12 w-12"
         >
-          <Droplet className="h-5 w-5" />
+          <Weight className="h-5 w-5" />
         </Button>
         <Button
           variant={current === 4 ? "default" : "outline"}
           size="icon"
           onClick={() => scrollToIndex(4)}
+          className="h-12 w-12"
+        >
+          <Droplet className="h-5 w-5" />
+        </Button>
+        <Button
+          variant={current === 5 ? "default" : "outline"}
+          size="icon"
+          onClick={() => scrollToIndex(5)}
           className="h-12 w-12"
         >
           <Ruler className="h-5 w-5" />
@@ -86,12 +95,15 @@ const Index = () => {
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
-          startIndex: 4,
+          startIndex: 0,
           loop: false,
           align: "start"
         }}
       >
         <CarouselContent>
+          <CarouselItem>
+            <AreaCard />
+          </CarouselItem>
           <CarouselItem>
             <SpeedCard />
           </CarouselItem>
