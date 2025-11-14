@@ -52,6 +52,22 @@ export const volumeToLiters: Record<string, number> = {
   "tsp-uk": 0.00591939,
 };
 
+// Area conversions to square meters
+export const areaToSqMeters: Record<string, number> = {
+  mm2: 0.000001,
+  cm2: 0.0001,
+  m2: 1,
+  km2: 1000000,
+  are: 100,
+  ha: 10000,
+  arpent: 3418.89,
+  ac: 4046.8564224,
+  in2: 0.00064516,
+  ft2: 0.09290304,
+  yd2: 0.83612736,
+  mi2: 2589988.110336,
+};
+
 export const convertLength = (value: number, fromUnit: string, toUnit: string): number => {
   const meters = value * lengthToMeters[fromUnit];
   return meters / lengthToMeters[toUnit];
@@ -70,4 +86,9 @@ export const convertSpeed = (value: number, fromUnit: string, toUnit: string): n
 export const convertVolume = (value: number, fromUnit: string, toUnit: string): number => {
   const liters = value * volumeToLiters[fromUnit];
   return liters / volumeToLiters[toUnit];
+};
+
+export const convertArea = (value: number, fromUnit: string, toUnit: string): number => {
+  const sqMeters = value * areaToSqMeters[fromUnit];
+  return sqMeters / areaToSqMeters[toUnit];
 };
