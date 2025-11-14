@@ -12,10 +12,10 @@ const AreaCard = () => {
   const [unit3, setUnit3] = useState(() => localStorage.getItem("areaUnit3") || "ft2");
   const [unit4, setUnit4] = useState(() => localStorage.getItem("areaUnit4") || "ac");
   
-  const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
-  const [value4, setValue4] = useState("");
+  const [value1, setValue1] = useState("0");
+  const [value2, setValue2] = useState("0");
+  const [value3, setValue3] = useState("0");
+  const [value4, setValue4] = useState("0");
 
   useEffect(() => {
     localStorage.setItem("areaUnit1", unit1);
@@ -166,10 +166,15 @@ const AreaCard = () => {
   };
 
   const handleClear = () => {
-    setValue1("");
-    setValue2("");
-    setValue3("");
-    setValue4("");
+    setValue1("0");
+    setValue2("0");
+    setValue3("0");
+    setValue4("0");
+  };
+
+  const getUnitLabel = (unitValue: string) => {
+    const unit = areaUnits.find(u => u.value === unitValue);
+    return unit ? unit.label : unitValue;
   };
 
   return (
@@ -185,7 +190,7 @@ const AreaCard = () => {
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <UnitSelector
-            label="Unit 1"
+            label={getUnitLabel(unit1)}
             currentUnit={unit1}
             units={areaUnits}
             onUnitChange={handleUnit1Change}
@@ -201,7 +206,7 @@ const AreaCard = () => {
 
         <div className="space-y-2">
           <UnitSelector
-            label="Unit 2"
+            label={getUnitLabel(unit2)}
             currentUnit={unit2}
             units={areaUnits}
             onUnitChange={handleUnit2Change}
@@ -217,7 +222,7 @@ const AreaCard = () => {
 
         <div className="space-y-2">
           <UnitSelector
-            label="Unit 3"
+            label={getUnitLabel(unit3)}
             currentUnit={unit3}
             units={areaUnits}
             onUnitChange={handleUnit3Change}
@@ -233,7 +238,7 @@ const AreaCard = () => {
 
         <div className="space-y-2">
           <UnitSelector
-            label="Unit 4"
+            label={getUnitLabel(unit4)}
             currentUnit={unit4}
             units={areaUnits}
             onUnitChange={handleUnit4Change}
