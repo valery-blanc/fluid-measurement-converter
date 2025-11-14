@@ -177,24 +177,18 @@ const VolumeCard = () => {
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="text-center text-sm text-muted-foreground">
-          <p>1 L = 10 dL = 4.23 cups • 1 gal = 3.79 L</p>
-        </div>
-        
-        <Button 
-          onClick={() => {
-            setValue1("");
-            setValue2("");
-            setValue3("");
-            setValue4("");
-          }}
-          variant="outline"
-          className="w-full"
-        >
-          Clear
-        </Button>
-      </div>
+      <Button 
+        onClick={() => {
+          setValue1("");
+          setValue2("");
+          setValue3("");
+          setValue4("");
+        }}
+        variant="outline"
+        className="w-full"
+      >
+        Clear
+      </Button>
     </Card>
   );
 };

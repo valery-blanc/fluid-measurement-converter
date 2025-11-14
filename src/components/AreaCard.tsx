@@ -178,17 +178,9 @@ const AreaCard = () => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>Surface</CardTitle>
-          <Button variant="ghost" size="sm" onClick={handleClear}>
-            Clear
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
+    <Card className="w-full max-w-md p-4 space-y-2 shadow-lg">
+      <div className="space-y-2">
+        <div className="space-y-2 p-3 bg-secondary/30 rounded-xl">
           <UnitSelector
             label={getUnitLabel(unit1)}
             currentUnit={unit1}
@@ -199,12 +191,15 @@ const AreaCard = () => {
             type="number"
             value={value1}
             onChange={handleValue1Change}
-            placeholder="Enter value"
-            className="text-lg"
+            placeholder="0"
+            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
+            step="any"
+            autoFocus
+            inputMode="numeric"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 p-3 bg-accent/20 rounded-xl">
           <UnitSelector
             label={getUnitLabel(unit2)}
             currentUnit={unit2}
@@ -215,12 +210,14 @@ const AreaCard = () => {
             type="number"
             value={value2}
             onChange={handleValue2Change}
-            placeholder="Enter value"
-            className="text-lg"
+            placeholder="0"
+            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-accent transition-all"
+            step="any"
+            inputMode="numeric"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 p-3 bg-primary/10 rounded-xl">
           <UnitSelector
             label={getUnitLabel(unit3)}
             currentUnit={unit3}
@@ -231,12 +228,14 @@ const AreaCard = () => {
             type="number"
             value={value3}
             onChange={handleValue3Change}
-            placeholder="Enter value"
-            className="text-lg"
+            placeholder="0"
+            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
+            step="any"
+            inputMode="numeric"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 p-3 bg-muted/20 rounded-xl">
           <UnitSelector
             label={getUnitLabel(unit4)}
             currentUnit={unit4}
@@ -247,11 +246,17 @@ const AreaCard = () => {
             type="number"
             value={value4}
             onChange={handleValue4Change}
-            placeholder="Enter value"
-            className="text-lg"
+            placeholder="0"
+            className="text-2xl h-14 text-center font-semibold bg-card border-2 focus:ring-2 focus:ring-primary transition-all"
+            step="any"
+            inputMode="numeric"
           />
         </div>
-      </CardContent>
+      </div>
+
+      <Button variant="outline" className="w-full" onClick={handleClear}>
+        Clear
+      </Button>
     </Card>
   );
 };
