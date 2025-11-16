@@ -47,3 +47,18 @@ export const volumeUnits = [
   { value: "tbsp-uk", label: "UK Tablespoon (tbsp)" },
   { value: "tsp-uk", label: "UK Teaspoon (tsp)" },
 ];
+
+export const areaUnits = [
+  { value: "mm2", label: "Square Millimeters (mm²)" },
+  { value: "cm2", label: "Square Centimeters (cm²)" },
+  { value: "m2", label: "Square Meters (m²)" },
+  { value: "km2", label: "Square Kilometers (km²)" },
+  { value: "are", label: "Are (a)" },
+  { value: "ha", label: "Hectare (ha)" },
+  { value: "arpent", label: "Arpent" },
+  { value: "ac", label: "Acre (ac)" },
+  { value: "in2", label: "Square Inches (in²)" },
+  { value: "ft2", label: "Square Feet (ft²)" },
+  { value: "yd2", label: "Square Yards (yd²)" },
+  { value: "mi2", label: "Square Miles (mi²)" },
+];

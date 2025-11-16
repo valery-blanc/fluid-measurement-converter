@@ -184,11 +184,7 @@ const WeightCard = () => {
       </div>
 
       <div className="space-y-4">
-        <div className="text-center text-sm text-muted-foreground">
-          <p>1 lb = 16 oz = 453.6 g • 1 kg = 2.205 lb</p>
-        </div>
-        
-        <Button 
+        <Button
           onClick={() => {
             setLbWhole("");
             setOz("");

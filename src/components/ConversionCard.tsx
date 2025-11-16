@@ -186,11 +186,7 @@ const ConversionCard = () => {
       </div>
 
       <div className="space-y-4">
-        <div className="text-center text-sm text-muted-foreground">
-          <p>1 ft = 12 in = 30.48 cm • 1 yd = 3 ft</p>
-        </div>
-        
-        <Button 
+        <Button
           onClick={() => {
             setFeet("");
             setInches("");

@@ -114,23 +114,17 @@ const TemperatureCard = () => {
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="text-center text-sm text-muted-foreground">
-          <p>0°C = 32°F = 273.15K</p>
-        </div>
-        
-        <Button 
-          onClick={() => {
-            setCelsius("");
-            setFahrenheit("");
-            setKelvin("");
-          }}
-          variant="outline"
-          className="w-full"
-        >
-          Clear
-        </Button>
-      </div>
+      <Button 
+        onClick={() => {
+          setCelsius("");
+          setFahrenheit("");
+          setKelvin("");
+        }}
+        variant="outline"
+        className="w-full"
+      >
+        Clear
+      </Button>
     </Card>
   );
 };
