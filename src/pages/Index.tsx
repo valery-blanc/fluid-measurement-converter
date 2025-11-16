@@ -11,17 +11,17 @@ import { Ruler, Weight, Gauge, Thermometer, Droplet, Square } from "lucide-react
 
 const Index = () => {
   const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(5);
 
   useEffect(() => {
     if (!api) return;
 
-    // Set initial state to first page (index 0)
-    setCurrent(0);
+    // Set initial state to last page (index 5)
+    setCurrent(5);
     
-    // Force scroll to first position
+    // Force scroll to last position
     const timer = setTimeout(() => {
-      api.scrollTo(0, false);
+      api.scrollTo(5, false);
     }, 0);
 
     api.on("select", () => {
@@ -95,7 +95,7 @@ const Index = () => {
         setApi={setApi} 
         className="w-full max-w-md" 
         opts={{ 
-          startIndex: 0,
+          startIndex: 5,
           loop: false,
           align: "start"
         }}
