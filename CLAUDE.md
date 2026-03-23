@@ -51,6 +51,27 @@ Capacitor 7 (Android). `appId: app.lovable.e835bfd78466470db4df68c15a66d4a1`, `a
 
 ---
 
+## Overrides pour le skill /release
+
+Ce projet est **web + Capacitor**, pas un projet Android natif. Les valeurs par défaut du skill /release ne s'appliquent pas directement :
+
+| Ce que le skill fait par défaut | Ce qu'il faut faire ici |
+|---|---|
+| Lire `app/build.gradle.kts` | Lire `android/app/build.gradle` (Groovy, pas KTS) |
+| `./gradlew clean bundleRelease` (racine) | `cd android && JAVA_HOME="C:/Program Files/Android/Android Studio/jbr" ./gradlew clean bundleRelease` |
+| AAB : `app/build/outputs/bundle/release/app-release.aab` | AAB : `android/app/build/outputs/bundle/release/app-release.aab` |
+
+**Étape supplémentaire obligatoire AVANT Gradle (entre Step 2 et Step 3 du skill) :**
+```bash
+npm run build && npx cap sync android
+```
+Sans cette étape, le bundle release ne contient pas les assets web à jour.
+
+**JAVA_HOME** : toujours utiliser `C:/Program Files/Android/Android Studio/jbr` (Java 21).
+Le JDK système (Java 25) est incompatible avec cette version de Gradle.
+
+---
+
 ## Règles ADB (OBLIGATOIRE)
 
 **Ne JAMAIS utiliser `adb shell pm clear <package>` sur un launcher.**
