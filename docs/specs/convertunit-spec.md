@@ -110,7 +110,7 @@ Ces 3 composants suivent exactement le même pattern :
 |-----------|---------|---------|---------|---------|
 | AreaCard | m² | ha | ft² | ac |
 | SpeedCard | km/h | mi/h | km/s | kts |
-| VolumeCard | L | mL | gal-us | cup-us |
+| VolumeCard | L | dL | gal-us | cup-us |
 
 #### Clés localStorage
 
@@ -126,19 +126,22 @@ Layout hybride avec **3 sections** :
 
 1. **Section Pounds + Ounces** (`bg-secondary/30`) :
    - 2 champs côte à côte (`flex gap-2`) : Pounds (lb) et Ounces (oz)
-   - Inputs `text-xl h-12`
-   - Label fixe "Pounds + Ounces"
+   - Labels individuels : "Pounds (lb)" et "Ounces (oz)"
+   - Inputs `text-xl h-12`, `min="0"`
+   - Pounds : `step="1"` | Ounces : `step="any"`
+   - Label de section : "Pounds + Ounces"
    - Conversion : `totalOz = lb * 16 + oz`
    - `autoFocus` sur le champ Pounds
 
 2. **Section Unité 1** (`bg-accent/20`) :
-   - UnitSelector + Input, défaut : `lb`
+   - UnitSelector + Input `text-2xl h-14`, `min="0"`, défaut : `lb`
 
 3. **Section Unité 2** (`bg-primary/10`) :
-   - UnitSelector + Input, défaut : `kg`
+   - UnitSelector + Input `text-2xl h-14`, `min="0"`, défaut : `kg`
 
 - Persistance : `weightUnit1`, `weightUnit2`
-- Conversion via ounces comme unité pivot
+- Précision : `.toFixed(5)` pour toutes les valeurs
+- L'intermédiaire de calcul entre la section lb+oz et les champs unitaires est **ounces** (oz). La fonction `convertWeight` utilise kg comme pivot interne, mais le composant passe toujours par oz comme valeur intermédiaire.
 
 ### 5.3 ConversionCard (Longueurs)
 
@@ -146,19 +149,22 @@ Layout hybride avec **3 sections** :
 
 1. **Section Feet + Inches** (`bg-secondary/30`) :
    - 2 champs côte à côte : Feet (ft) et Inches (in)
-   - Label fixe "Feet + Inches"
-   - Feet : `step="1"`, Inches : `step="any"`
+   - Labels individuels : "Feet (ft)" et "Inches (in)"
+   - Label de section : "Feet + Inches"
+   - Feet : `step="1"`, `min="0"` | Inches : `step="any"`, `min="0"`
+   - Inputs `text-xl h-12`
    - Conversion : `totalInches = feet * 12 + inches`
    - `autoFocus` sur le champ Feet
 
 2. **Section Unité 1** (`bg-accent/20`) :
-   - UnitSelector + Input, défaut : `cm`
+   - UnitSelector + Input `text-2xl h-14`, `min="0"`, défaut : `cm`
 
 3. **Section Unité 2** (`bg-primary/10`) :
-   - UnitSelector + Input, défaut : `yd`
+   - UnitSelector + Input `text-2xl h-14`, `min="0"`, défaut : `yd`
 
 - Persistance : `lengthUnit1`, `lengthUnit2`
-- Conversion via inches comme unité pivot
+- Précision : `.toFixed(5)` pour toutes les valeurs
+- L'intermédiaire de calcul entre la section ft+in et les champs unitaires est **inches** (in). La fonction `convertLength` utilise mètres comme pivot interne, mais le composant passe toujours par inches comme valeur intermédiaire.
 
 ### 5.4 TemperatureCard (Températures)
 
@@ -169,11 +175,14 @@ Layout fixe avec **3 champs** (pas de UnitSelector) :
 3. **Kelvin (K)** — `bg-primary/10`, `min="0"`
 
 - Labels fixes (pas de dropdown, les unités ne sont pas modifiables)
+- Inputs : `text-2xl h-14`, `step="any"`
 - Formules :
   - `°F = °C × 9/5 + 32`
   - `K = °C + 273.15`
 - Précision : `.toFixed(5)`
 - Pas de persistance localStorage (pas de sélection d'unité)
+- Bouton **"Clear"** en bas (`variant="outline"`, `w-full`) : remet les 3 champs à `""`
+- **Comportement champ vide** : si la valeur saisie est `NaN` (champ effacé), les autres champs **ne sont pas mis à jour** (contrairement aux autres composants qui traitent le vide comme `0`)
 
 ---
 
@@ -396,7 +405,7 @@ ft2: 0.09290304, yd2: 0.83612736, mi2: 2589988.110336
 
 - Configuré pour Android (`@capacitor/android`)
 - `appId: "app.lovable.e835bfd78466470db4df68c15a66d4a1"`
-- `appName: "fluid-measurement-converter"`
+- `appName: "convert unit"`
 - `webDir: "dist"`
 
 ---
